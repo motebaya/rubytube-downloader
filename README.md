@@ -5,7 +5,7 @@
 
 ![](https://img.shields.io/badge/ruby-package-red?logo=ruby)
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=yshort-downloader&left_text=Total%20views)
-![](https://img.shields.io/github/downloads/valsztrax/yshort-downloader/total.svg?style=flat&color=yellow&logo=appveyor)
+![](https://img.shields.io/github/downloads/valsztrax/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=white)
 <a href="https://mobile.twitter.com/valzshel" target="_blank"> ![](https://img.shields.io/badge/Twitter-@valszhel-blue?logo=twitter)</a>
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
