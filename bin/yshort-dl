@@ -1,0 +1,48 @@
+#!/usr/bin/ruby
+# Tue May 31 02:44:16 2022
+# youtube media downlaoder with js parser method
+# this is real get from youtube source, 
+# nothing spesific media type like what do you want!.
+# read Markdown file for more details.
+# © Copyright 2022.06 github.com/valsztrax
+
+require "yshorts_downloader"
+require "optparse"
+
+def main()
+	ARGV << '-h' if ARGV.empty?
+	options = OpenStruct.new
+	begin
+		OptionParser.new do | opts |
+			opts.banner = "#{@banner}\n Usage: yshort.rb [options] / -h"
+			opts.on("-u url","--url", String, "url youtube short") do | url |
+				options[:url] = url
+			end
+			opts.on("-o output", "--output", String, "output path download") do | out |
+				options[:output] = out
+			end
+			opts.on_tail("-h", "--help", String, "show all options and exit") do
+				puts opts
+				exit
+			end
+		end.parse!
+	rescue OptionParser::InvalidOption => e
+		abort("#{banner}\n invalid options : #{e.message}")
+	end
+
+	if options[:url].match?(%r"youtube\.com\/shorts\/[a-zA-Z0-9_-]+")
+		if File.directory?(options[:output])
+			puts @banner
+			YoutubeShort.new(options[:url], options[:output]).Main()
+		else
+			abort("nothing dir #{options[:output]}!")
+		end
+	else
+		abort("invalid youtube short url: #{options[:url]}")
+	end
+end
+#
+#if ($0 == __FILE__)
+#	main()
+#end
+main()
