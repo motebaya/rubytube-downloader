@@ -87,5 +87,9 @@ yshort-dl -u <shorts_url> -o <path_to_save>
 # default output is where you run the command.
 ```
 
+### problems
+ * Sometimes can't get stream url. /nothing valid stream url in
+   the short pages.
+
 ** Me also in twitter ***
 * [@valzshel](https://mobile.twitter.com/valzshel)
