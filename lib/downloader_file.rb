@@ -6,17 +6,34 @@
 #	@https://github.com/jnunemaker/httparty
 # © Copyriht 2022.06 github.com/valzstrax
 
+
+#https://stackoverflow.com/questions/16026048/pretty-file-size-in-ruby
+class Integer
+	def to_filesize
+		{
+			'B'=> 1024,
+			'KB' => 1024 * 1024,
+			'MB' => 1024 * 1024 * 1024,
+			'GB' => 1024 * 1024 * 1024 * 1024,
+			'TB' => 1024 * 1024 * 1024 * 1024 * 1024
+		}.each_pair { |e, s| 
+			return "#{(self.to_f / (s / 1024)).round(2)}#{e}" if self < s
+		}
+	end
+end
+
 class ProgressRunner
 	def initialize(total)
 		@total = total
 		@progress = 0
 		@progress_bar = ProgressBar.create(
-			:title => "downloading!",
+#			:title => "downloading!",
 			:total => @total,
-			:format => "%a %b\u{15E7}%i %p%% %t", # pacmann format
+			:format => "%a %b\u{15E7}%i %p%% %t",
 			:progress_mark => ' ',
 			:remainder_mark => "\u{FF65}"
 		)
+		set_title
 	end
 
 	def download(segment)
@@ -25,6 +42,7 @@ class ProgressRunner
 			if @progress < @total
 				@progress += segment
 				@progress = @total if @progress > @total
+				set_title
 				@progress_bar.progress = @progress
 			elsif @progress == 0
 				@progress_bar.finish
@@ -34,10 +52,13 @@ class ProgressRunner
 			raise
 		end
 	end
+
+	def set_title
+		@progress_bar.title = "#{@progress.to_i.to_filesize}/#{@total.to_i.to_filesize}"
+	end
 end
 
 def download_stream(url, name, path)
-	name = name.gsub(/(?:\?|\/)/,"_") # replace invalid file name
 	if File.directory?(path)	
 		length = HTTParty.head(url)["content-length"].to_i
 		progress_runner = ProgressRunner.new(length)
