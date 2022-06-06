@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = '1.0.2'
   s.summary     = "a simple ruby script"
   s.description = "ruby on rails for download youtube shorts media!"
-  s.authors     = ["valsztrax_hellmoon"]
+  s.authors     = ["valsztrax"]
   s.email       = 'nyrtodaniel78@gmail.com'
   s.files       = FileList["lib/*"]
   s.executables << "yshort-dl"
