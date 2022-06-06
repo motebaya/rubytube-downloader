@@ -2,7 +2,7 @@ require "rake"
 
 Gem::Specification.new do |s|
   s.name        = 'yshort-downloader'
-  s.version     = '1.0.2'
+  s.version     = '1.0.3'
   s.summary     = "a simple ruby script"
   s.description = "ruby on rails for download youtube shorts media!"
   s.authors     = ["valsztrax"]
