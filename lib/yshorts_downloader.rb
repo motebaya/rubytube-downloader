@@ -91,9 +91,9 @@ class YoutubeShort
 					return false
 				end
 			else
-				abort("failed get js data!")
+				abort(" •! failed get js data!")
 			end
-		rescue ParseError => e
+		rescue JSON::ParserError => e
 			abort("#{e.message}")
 		end
 	end
@@ -124,12 +124,16 @@ class YoutubeShort
 					index_choice = index_formats[choice.to_i - 1]
 					filename = json_data["title"] + "." + index_choice["type"].split("/")[-1]
 					puts " [yshort] downloading files: #{filename}"
-					download_stream(
-						index_choice["link"],
-						filename,
-						@path
-					)
-					puts " [yshort] saved as: #{@path}#{filename}"
+					if (! index_choice["link"].nil?)
+						download_stream(
+							index_choice["link"],
+							filename,
+							@path
+						)
+						puts " [yshort] saved as: #{@path}#{filename}"
+					else
+						abort(" •! exception with signatureCipher, try other shorts url!")
+					end
 				else
 					abort(" •! must be < #{index_formats.length}")
 				end
