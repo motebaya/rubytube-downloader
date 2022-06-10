@@ -101,7 +101,7 @@ yshort-dl -s <shorts_url> -t <audio/video> -o <path_to_save>
    the short pages.
 
 ### updates!
- * adding more way for download from ![savetube.me](ytshorts.savetube.me)
+ * adding more way for download from [savetube.me](ytshorts.savetube.me)
    In CLI version
 
 ** Me also in twitter ***
