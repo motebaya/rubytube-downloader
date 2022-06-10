@@ -6,21 +6,13 @@
 # read Markdown file for more details.
 # © Copyright 2022.06 github.com/valsztrax
 
-require "httparty"
-require "json"
-require "ruby-progressbar"
-require "optparse"
+require File.join(
+	File.dirname(
+		__FILE__), "function")
+
 require File.join(
 	File.dirname(
 		__FILE__), "downloader_file")
-
-@banner = %{
-            ╦ ╦┌─┐┬ ┬┌─┐┬─┐┌┬┐╦═╗┌┐ 
-            ╚╦╝└─┐├─┤│ │├┬┘ │ ╠╦╝├┴┐
-             ╩ └─┘┴ ┴└─┘┴└─ ┴o╩╚═└─┘
-   [ a simple ruby youtube short downloader ]
-           [ github.com/valsztrax ]
-} 
 
 class YoutubeShort
 
@@ -35,72 +27,50 @@ class YoutubeShort
 		end
 		@formats = []
 		@adaptiveFormats = []
-		@uagent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edg/101.0.1210.53 [ip:89.217.147.131]'
-#		Main()
-	end
-
-	def getPage(url)
-		begin
-			return HTTParty.get(url, 
-				:headers => {
-					'user-agent': @uagent}).body
-		rescue SocketError
-			abort("no internet connection!")
-		end
 	end
 
 	def parseJS(page)
 		formats = []
 		adaptiveFormats = []
-		begin
-			if (js = page.match(%r"(?<=ytInitialPlayerResponse\s=\s)(.*?)(?=;(?:var\smeta|<\/script>))"))
-				data = JSON.parse(js.to_s)
-				if (data.has_key?("playabilityStatus"))
-					if (data["playabilityStatus"]["status"].downcase == "ok")
-						["formats","adaptiveFormats"].each { | format |
-							data["streamingData"][format].each { | stream |
-								quality = if stream.has_key?("qualityLabel") then stream["qualityLabel"] else "" end
-								opts = {
-									"link" => stream["url"],
-									"type" => stream["mimeType"].split(";")[0],
-									"quality" => quality,
-									"bitrate" => stream["bitrate"]
-								}
-								eval %{
-									if !@#{format}.include?(opts)
-										@#{format}.append(opts)
-									end
-								}
-										
+		if (js = page.match(%r"(?<=ytInitialPlayerResponse\s=\s)(.*?)(?=;(?:var\smeta|<\/script>))"))
+			data = loadJson(js.to_s)
+			if (data.has_key?("playabilityStatus"))
+				if (data["playabilityStatus"]["status"].downcase == "ok")
+					["formats","adaptiveFormats"].each { | format |
+						data["streamingData"][format].each { | stream |
+							quality = if stream.has_key?("qualityLabel") then stream["qualityLabel"] else "" end
+							opts = {
+								"link" => stream["url"],
+								"type" => stream["mimeType"].split(";")[0],
+								"quality" => quality,
+								"bitrate" => stream["bitrate"]
 							}
+							eval %{
+								if !@#{format}.include?(opts)
+									@#{format}.append(opts)
+								end
+							}
+									
 						}
-
-						video_info = data["videoDetails"]
-						tags = video_info.has_key?("keywords") ? video_info["keywords"] : []
-						return {
-							"author" => video_info["author"],
-							"title" => video_info["title"],
-							"duration" => video_info["lengthSeconds"],
-							"tags" => tags.join(', '),
-							"description" => video_info["shortDescription"]
-						}
-					else
-						return false
-					end
+					}
+					video_info = data["videoDetails"]
+					tags = video_info.has_key?("keywords") ? video_info["keywords"] : []
+					return {
+						"author" => video_info["author"],
+						"title" => video_info["title"],
+						"duration" => video_info["lengthSeconds"],
+						"tags" => tags.join(', '),
+						"description" => video_info["shortDescription"]
+					}
 				else
 					return false
 				end
 			else
-				abort(" •! failed get js data!")
+				return false
 			end
-		rescue JSON::ParserError => e
-			abort("#{e.message}")
+		else
+			abort(" •! failed get js data!")
 		end
-	end
-
-	def prompt(*args)
-		print(*args)
-    	gets
 	end
 
 	def Main
