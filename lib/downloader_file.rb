@@ -6,8 +6,9 @@
 #	@https://github.com/jnunemaker/httparty
 # © Copyriht 2022.06 github.com/valzstrax
 
+require "ruby-progressbar"
+require "httparty"
 
-#https://stackoverflow.com/questions/16026048/pretty-file-size-in-ruby
 class Integer
 	def to_filesize
 		{
@@ -27,7 +28,6 @@ class ProgressRunner
 		@total = total
 		@progress = 0
 		@progress_bar = ProgressBar.create(
-#			:title => "downloading!",
 			:total => @total,
 			:format => "%a %b\u{15E7}%i %p%% %t",
 			:progress_mark => ' ',
@@ -59,7 +59,8 @@ class ProgressRunner
 end
 
 def download_stream(url, name, path)
-	if File.directory?(path)	
+	if File.directory?(path)
+		name = name.gsub(/(?:\?|\/|\|)/,'_')
 		length = HTTParty.head(url)["content-length"].to_i
 		progress_runner = ProgressRunner.new(length)
 		File.open("#{path}#{name}",'wb') do | file |
