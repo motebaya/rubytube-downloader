@@ -1,12 +1,11 @@
 <p align="center">
 <img src="https://i.ibb.co/ZYjZwgd/1654340956599.png"/>
-<a href="https://github.com/valsztrax" target="_blank"><img style="width: 40%; display: block; margin-right: auto; margin-left:auto" src="https://img.shields.io/badge/Author-valsztrax-yellow?style=flat&logo=Coursera&logoColor=white"/></a>
+<a href="https://github.com/motebaya" target="_blank"><img style="width: 35%; display: block; margin-right: auto; margin-left:auto" src="https://img.shields.io/badge/Author-motebaya-yellow?style=flat&logo=Coursera&logoColor=white"/></a>
 </p>
 
 ![](https://img.shields.io/badge/ruby-package-red?logo=ruby)
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=yshort-downloader&left_text=Total%20views)
 ![](https://img.shields.io/github/downloads/valsztrax/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=white)
-<a href="https://mobile.twitter.com/valzshel" target="_blank"> ![](https://img.shields.io/badge/Twitter-@valszhel-blue?logo=twitter)</a>
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
 #### What's this?
@@ -104,5 +103,3 @@ yshort-dl -s <shorts_url> -t <audio/video> -o <path_to_save>
  * adding more way for download from [savetube.me](ytshorts.savetube.me)
    In CLI version
 
-** Me also in twitter ***
-* [@valzshel](https://mobile.twitter.com/valzshel)
