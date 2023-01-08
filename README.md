@@ -1,18 +1,18 @@
 <p align="center">
-<img src="https://i.ibb.co/ZYjZwgd/1654340956599.png"/>
-<a href="https://github.com/motebaya" target="_blank"><img style="width: 35%; display: block; margin-right: auto; margin-left:auto" src="https://img.shields.io/badge/Author-motebaya-yellow?style=flat&logo=Coursera&logoColor=white"/></a>
+<img width="30%" height="50%" width src="images/1654340956599.png"/>
 </p>
 
+![](https://img.shields.io/badge/author-motebaya-yellow?style=flat&logo=Coursera&logoColor=white)
 ![](https://img.shields.io/badge/ruby-package-red?logo=ruby)
 ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=yshort-downloader&left_text=Total%20views)
-![](https://img.shields.io/github/downloads/valsztrax/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=white)
+![](https://img.shields.io/github/downloads/motebaya/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=white)
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
-#### What's this?
-  * <b>this is a ruby module/script for download youtube shorts video
+## ?
+  * <b> a ruby module/script for download youtube shorts video
     looks like usually youtube videos. but i make it like different.</b>
  ----------
-#### installing package
+## installing package
 ```bash
   * Install with gems
     > gem install yshort-downloader
@@ -20,7 +20,7 @@
     > gem 'yshort-downloader', :git => 'git://github.com/valsztrax/yshort-downlaoder.git'
 ```
 
-### use as module
+## use as module
  * importing
 ```ruby
 irb(main):002:0> require "yshorts_downloader"
@@ -71,13 +71,13 @@ irb(main):022:0> short.adaptiveFormats
 },  "{....}"]
 ```
 
-### CLI Command
+## CLI Command
 ```bash
             ┬ ┬┌─┐┬ ┬┌─┐┬─┐┌┬┐┌─┐
             └┬┘└─┐├─┤│ │├┬┘ │ └─┐
              ┴ └─┘┴ ┴└─┘┴└─ ┴ └─┘
    [ • a simple ruby youtube short downloader • ]
-           [ • github.com/valsztrax • ]
+           [ • github.com/motebaya • ]
 
  Usage: yshort.rb [options] / -h
     -u, --url url                    url youtube short
