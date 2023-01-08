@@ -1,5 +1,5 @@
 <p align="center">
-<img width="30%" height="50%" width src="images/1654340956599.png"/>
+<img width="40%" height="50%" src="https://raw.githubusercontent.com/motebaya/yshort-downloader/main/lib/1654340956599.png"/>
 </p>
 
 ![](https://img.shields.io/badge/author-motebaya-yellow?style=flat&logo=Coursera&logoColor=white)
