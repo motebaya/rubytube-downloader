@@ -1,35 +1,20 @@
-<style>
-  span {
-    font-size: 16px;
-    font-weight: 300;
-  }
-  details {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5em;
-  }
-  summary {
-    font-weight: bold;
-    cursor: pointer;
-  }
-</style>
+
 <!-- <p align="center">
 <img width="40%" height="50%" src="https://raw.githubusercontent.com/motebaya/yshort-downloader/main/lib/1654340956599.png"/>
 </p> -->
-<center>
 
-# rubytube-downloader
+<div align="center">
+
+  # rubytube-downloader
 
 ![](https://img.shields.io/badge/motebaya-blue?style=flat&logo=Coursera&logoColor=white)
 ![](https://img.shields.io/badge/ruby-package-red?logo=ruby)
 ![](https://img.shields.io/github/downloads/motebaya/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=yellow)
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
-<span >A ruby script that i used it for download batch video or audio from youtube playlist</span>
+  <sub>A ruby script that i used it for download batch video or audio from youtube playlist</sub>
+</div>
 
-</center>
-
----
 
 <details>
   <summary> Installing With Gem </summary>
@@ -38,11 +23,11 @@
   * Install with gems
     > gem install yshort-downloader
   * Install from github
-    > gem 'yshort-downloader', :git => 'git://github.com/valsztrax/yshort-downlaoder.git'
+    > gem 'yshort-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'
 ```
 
 </details>
-<br>
+
 <details>
   <summary>Usage as CLI (command line interface)</summary>
 
@@ -73,7 +58,6 @@ example: ./rubytube-dl -u https://www.youtube.com/shorts/<ytid> -o ../media/ -s 
 ```
 
 </details>
-<br>
 
 <details>
 <summary> Usage as Module:</summary>
@@ -92,19 +76,17 @@ usage: --
 
 </details>
 
-<br>
-
+  
 - Note
 
-  <span> savetube limit request: <pre><code>&lt;!doctype html&gt;
+<span> savetube limit request: <pre><code>&lt;!doctype html&gt;
   &lt;html lang=en&gt;
   &lt;title&gt;429 Too Many Requests&lt;/title&gt;
   &lt;h1&gt;Too Many Requests&lt;/h1&gt;
   &lt;p&gt;120 per 1 hour&lt;/p&gt;
-  </code></pre></span>
+</code></pre></span>
 
-<span >a small update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
+<sub> a small update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a> </sub>
 <br>
-&copy; 2023 github.com/motebaya
+<sub> &copy; 2023 github.com/motebaya </sub>
 
-</span>
