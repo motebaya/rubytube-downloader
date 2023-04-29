@@ -1,18 +1,39 @@
-<p align="center">
+<style>
+  span {
+    font-size: 16px;
+    font-weight: 300;
+  }
+  details {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5em;
+  }
+  summary {
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+<!-- <p align="center">
 <img width="40%" height="50%" src="https://raw.githubusercontent.com/motebaya/yshort-downloader/main/lib/1654340956599.png"/>
-</p>
+</p> -->
+<center>
 
-![](https://img.shields.io/badge/author-motebaya-yellow?style=flat&logo=Coursera&logoColor=white)
+# rubytube-downloader
+
+![](https://img.shields.io/badge/motebaya-blue?style=flat&logo=Coursera&logoColor=white)
 ![](https://img.shields.io/badge/ruby-package-red?logo=ruby)
-![visitor badge](https://visitor-badge.glitch.me/badge?page_id=yshort-downloader&left_text=Total%20views)
-![](https://img.shields.io/github/downloads/motebaya/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=white)
+![](https://img.shields.io/github/downloads/motebaya/yshort-downloader/total.svg?style=flat&color=green&logo=GoogleChrome&logoColor=yellow)
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
-## ?
-  * <b> a ruby module/script for download youtube shorts video
-    looks like usually youtube videos. but i make it like different.</b>
- ----------
-## installing package
+<span >A ruby script that i used it for download batch video or audio from youtube playlist</span>
+
+</center>
+
+---
+
+<details>
+  <summary> Installing With Gem </summary>
+
 ```bash
   * Install with gems
     > gem install yshort-downloader
@@ -20,86 +41,70 @@
     > gem 'yshort-downloader', :git => 'git://github.com/valsztrax/yshort-downlaoder.git'
 ```
 
-## use as module
- * importing
-```ruby
-irb(main):002:0> require "yshorts_downloader"
-irb(main):005:0> short = YoutubeShort.new("https://youtube.com
-/shorts/<shorts_id>?feature")
-```
+</details>
+<br>
+<details>
+  <summary>Usage as CLI (command line interface)</summary>
 
-* Get json data
-```ruby
-irb(main):019:0> js_data = short.parseJS(short.getPage(short.shorts_
-url)) =>
-# result:
-{
-"author"=>"<shorts_author>",
- "title"=>"<shorts_title>",
- "duration"=>"<shorts_duration>",
- "tags"=> "<shorts_tags>" # nil if nothing tags
- "description"=> "<shorts_description>"
-}
-```
+- savetube
 
-* running to download
-```ruby
-irb(main):000:0> short.Main()
-```
-
-* Audio with video
-```ruby
-irb(main):022:0> short.formats
-=>
-[{
-    "link"=> "https://rr3---sn-uxa3vhnxa-nvjl.googlevideo.com/.....",
-    "type"=>"video/mp4",
-    "quality"=>"360p",
-    "bitrate"=>598208
-},  "{....}"]
-```
-
-* Just fomat only ,eg: .webm, .mp4
-```ruby
-irb(main):022:0> short.adaptiveFormats
-=>
-[{
-    "link"=> "https://rr3---sn-uxa3vhnxa-nvjl.googlevideo.com/.....",
-    "type"=>"video/mp4",
-    "quality"=>"1080p",
-    "bitrate"=> 1954462
-},  "{....}"]
-```
-
-## CLI Command
 ```bash
-            ┬ ┬┌─┐┬ ┬┌─┐┬─┐┌┬┐┌─┐
-            └┬┘└─┐├─┤│ │├┬┘ │ └─┐
-             ┴ └─┘┴ ┴└─┘┴└─ ┴ └─┘
-   [ • a simple ruby youtube short downloader • ]
-           [ • github.com/motebaya • ]
+  usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server> -t <type>
 
- Usage: yshort.rb [options] / -h
-    -u, --url url                    url youtube short
-    -o, --output output              output path download
-    -s, --savetube savetube          yshorts.savetube.me cli version
-    -t, --type type                  Type formats for savetube, only: audio & video
-    -h, --help                       show all options and exit
-````
- * Use cli command
-```
-yshort-dl -u <shorts_url> -o <path_to_save>
-# default output is where you run the command.
+  example: ./rubytube-dl -u https://www.youtube.com/shorts/<shortid> -o ../media/ -s savetube -t audio
 
-# for savetube
-yshort-dl -s <shorts_url> -t <audio/video> -o <path_to_save>
 ```
 
-### problems
- * Sometimes can't get stream url. /nothing valid stream url in
-   the short pages.
+- youtube.com
 
-### updates!
- * adding more way for download from [savetube.me](ytshorts.savetube.me)
-   In CLI version
+```
+usage : ./rubytube-dl -u <youtube_url> -o <output> -s <server>
 
+example: ./rubytube-dl -u https://www.youtube.com/shorts/<shorts_id> -o ../media/ -s youtube
+
+```
+
+- y2mate.com
+
+```
+usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server>
+
+example: ./rubytube-dl -u https://www.youtube.com/shorts/<ytid> -o ../media/ -s y2mate
+```
+
+</details>
+<br>
+
+<details>
+<summary> Usage as Module:</summary>
+
+- savetube
+
+```bash
+usage: --
+```
+
+- youtube.com
+
+```
+usage: --
+```
+
+</details>
+
+<br>
+
+- Note
+
+  <span> savetube limit request: <pre><code>&lt;!doctype html&gt;
+  &lt;html lang=en&gt;
+  &lt;title&gt;429 Too Many Requests&lt;/title&gt;
+  &lt;h1&gt;Too Many Requests&lt;/h1&gt;
+  &lt;p&gt;120 per 1 hour&lt;/p&gt;
+  </code></pre></span>
+
+<span >a small update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
+<br>
+&copy; 2023 github.com/motebaya
+
+</span>
