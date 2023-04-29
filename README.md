@@ -1,8 +1,3 @@
-
-<!-- <p align="center">
-<img width="40%" height="50%" src="https://raw.githubusercontent.com/motebaya/yshort-downloader/main/lib/1654340956599.png"/>
-</p> -->
-
 <div align="center">
 
   # rubytube-downloader
@@ -23,7 +18,7 @@
   * Install with gems
     > gem install yshort-downloader
   * Install from github
-    > gem 'yshort-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'
+    > gem 'rubytube-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'
 ```
 
 </details>
