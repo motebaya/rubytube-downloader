@@ -15,7 +15,6 @@
   <sub>A ruby script that i used it for download batch video or audio from youtube playlist</sub>
 </div>
 
----
 
 <details>
   <summary> Installing With Gem </summary>
@@ -77,7 +76,6 @@ usage: --
 
 </details>
 
-  ----
   
 - Note
 
