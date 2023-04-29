@@ -1,0 +1,133 @@
+#!/usr/bin/ruby
+# Tue May 31 02:44:16 2022
+# read Markdown file for more details.
+# © Copyright 2022.06 github.com/motebaya
+
+#-- update --
+# Fri Apr 28 07:20:43 PM 2023
+
+Dir["../lib/*_class.rb"].each do |classes| 
+    require_relative classes
+end
+
+require "optparse"
+
+$banner = %{
+        ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
+        ├┬┘│ │├┴┐└┬┘ │ │ │├┴┐├┤───│││  
+        ┴└─└─┘└─┘ ┴  ┴ └─┘└─┘└─┘ ─┴┘┴─┘
+  ~ a ruby script for DL batch youtube video ~
+      ~ © https://github.com/motebaya ~
+}
+
+# yt url validate with regex
+# https://stackoverflow.com/a/17030234
+def check_url(url)
+    return url.match(%r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)")
+end
+
+#  check path exists or no
+def check_path(path)
+    return File.directory?(path.to_s)
+end
+
+def main()
+    ARGV << '-h' if ARGV.empty?
+    options = OpenStruct.new
+    begin
+        OptionParser.new do | opts |
+            opts.banner = "#{$banner}\n Usage: rubytube-dl [OPTIONS]"
+            opts.on(
+                "-u url","--url",
+                String,
+                "youtube video/shorts url"
+            ) do | url |
+                options[:url] = url
+            end
+
+            opts.on(
+                "-o output", "--output",
+                String,
+                "output path download e.g: '/home/username/'"
+            ) do | out |
+                options[:output] = out
+            end
+
+            opts.on(
+                "-s server", "--server",
+                [:youtube, :savetube, :y2mate],
+                String,
+                "select server, server list: [ youtube, savetube, y2mate ]"
+            ) do | serv |
+                options[:server] = serv
+            end
+
+            opts.on(
+                "-t type", "--type",
+                [:audio, :video],
+                String,
+                "type of media: audio (.mp3) or video (.mp4)"
+            ) do | type |
+                options[:type] = type
+            end
+
+            opts.on_tail(
+                "-h", "--help", 
+                String,
+                "show help and exit."
+            ) do
+                puts opts
+                exit
+            end
+        end.parse!
+    rescue OptionParser::InvalidOption => e
+        abort("#{$banner}\n invalid options : #{e.message}")
+    end
+
+    #  start check options
+    if ([options[:url], options[:server], options[:output]].all?)
+        
+        puts $banner
+        puts
+
+        if (options[:type].nil? && options[:server] == "savetube")
+            abort(" required param -type for this server, use --help!")
+        end
+
+        if (check_url(options[:url]))
+            if (check_path(options[:output]))
+                case options[:server]
+                when "youtube"
+                    YoutubeCom.new(options[:url], options[:output], true).extract()
+                when "savetube"
+                    SaveTube.new(
+                        options[:url],
+                        options[:type],
+                        options[:output],
+                        true # enable CLI
+                    ).extract()
+                when "y2mate"
+                    Y2mate.new(
+                        options[:url],
+                        options[:output],
+                        true
+                    ).extract()
+                else
+                    raise OptionParser::InvalidArgument,
+                        "invalid server for -> #{options[:server]}"
+                end
+            else
+                raise OptionParser::InvalidArgument,
+                    "invalid output, no such directory -> #{options[:output]}"
+            end
+        else
+            raise OptionParser::InvalidArgument,
+                "invalid url for -> #{options[:url]}"
+        end
+    else
+        main()
+    end
+
+end
+
+main()
