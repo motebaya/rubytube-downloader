@@ -20,37 +20,24 @@
     - `gem install yshort-downloader`
 
   - Install from github
-    - `gem 'rubytube-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'`
-
-</sub>
-<br>
-<sub>
+    - <pre><code>$ gem 'rubytube-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'</code></pre>
 
 - Usage as CLI (command line interface)
 
   - savetube
-
-    - usage: `./rubytube-dl -u <youtube_url> -o <output_path> -s <server> -t <type>`
-
-    - example: `./rubytube-dl -u https://www.youtube.com/shorts/<shortid> -o ../media/ -s savetube -t audio`
+    <pre><code>usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server> -t <type>
+    example: ./rubytube-dl -u https://www.youtube.com/shorts/<shortid> -o ../media/ -s savetube -t audio
+    </code></pre>
 
   - youtube.com
-
-    - usage : `./rubytube-dl -u <youtube_url> -o <output> -s <server>`
-
-    - example: `./rubytube-dl -u https://www.youtube.com/shorts/<shorts_id> -o ../media/ -s youtube`
+    <pre><code>usage : ./rubytube-dl -u <youtube_url> -o <output> -s <server>
+    example: ./rubytube-dl -u https://www.youtube.com/shorts/<shorts_id> -o ../media/ -s youtube
+    </code></pre>
 
   - y2mate.com
-
-    - usage: `./rubytube-dl -u <youtube_url> -o <output_path> -s <server>`
-
-    - example: `./rubytube-dl -u https://www.youtube.com/shorts/<ytid> -o ../media/ -s y2mate`
-
-</sub>
-
-<br>
-
-<sub>
+    <pre><code>usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server>
+    example: ./rubytube-dl -u https://www.youtube.com/shorts/<ytid> -o ../media/ -s y2mate
+    </code></pre>
 
 - Usage as Module:
 
@@ -65,20 +52,19 @@
 </sub>
 
 <sub>
+- Note
 
-  - Note
+- savetube limit request:
 
-    - savetube limit request:
-  
   <pre><code>&lt;!doctype html&gt;
-&lt;html lang=en&gt;
-&lt;title&gt;429 Too Many Requests&lt;/title&gt;
-&lt;h1&gt;Too Many Requests&lt;/h1&gt;
-&lt;p&gt;120 per 1 hour&lt;/p&gt;
-</code></pre>
+  &lt;html lang=en&gt;
+  &lt;title&gt;429 Too Many Requests&lt;/title&gt;
+  &lt;h1&gt;Too Many Requests&lt;/h1&gt;
+  &lt;p&gt;120 per 1 hour&lt;/p&gt;
+  </code></pre>
 
 a small update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
 <br>
-  
+
 &copy; 2023 github.com/motebaya
 </sub>
