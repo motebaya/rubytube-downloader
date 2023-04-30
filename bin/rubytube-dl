@@ -11,6 +11,7 @@ Dir["../lib/*_class.rb"].each do |classes|
 end
 
 require "optparse"
+require "ostruct"
 
 $banner = %{
         ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
