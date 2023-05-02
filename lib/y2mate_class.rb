@@ -83,7 +83,7 @@ class Y2mate < Helper
                     end
 
                 end
-                puts
+                # puts
 
                 # if nothing, do prompt
                 if dformats.nil?
