@@ -1,21 +1,23 @@
 #!/usr/bin/ruby
 # y2mate clas from y2mate.com
-# date: Sat Apr 29 11:02:38 PM 2023
+# date: Tue May.02.2023 09:50:35 AM
 # @copyright: github.com/motebaya
 
 class Y2mate < Helper
     # y2mate no need @param formats
-    def initialize(url, path=nil, cli=false)
+    def initialize(url, path=nil, cli=false, default_quality=nil)
         super()
         @cli = cli
         @url = url
-        @path = getOutput(path)
+        @default_quality = default_quality
+        @path = !path.nil? ? getOutput(path): path
         @host = "https://www.y2mate.com"
         @theaders = {
             'Host' => 'www.y2mate.com',
             'UserAgent' => @userAgent[:linux],
             'Content-Type' => 'application/x-www-form-urlencoded'
         }
+        @shortid = check_url(url)[1]
     end
 
     def analyze
@@ -23,7 +25,6 @@ class Y2mate < Helper
             response = postPage("#{@host}/mates/analyzeV2/ajax",
                 @theaders,{k_query: @url, q_auto: 1})
             data = []
-            # response = File.open("y2mate_analyze.json", "r").read
             json = loadJson(response.to_s)
             if json['status'].downcase == "ok"
                 for key in json['links'].keys
@@ -55,11 +56,14 @@ class Y2mate < Helper
     def extract
         data = analyze
         if @cli
-            logger("y2mate", "downloading webpage: #{check_url(@url)[1]}")
+            logger("y2mate", "downloading webpage: #{@shortid}")
             if (!data.nil?)
                 logger("y2mate", "author: #{data[:author]}")
                 logger("y2mate", "title: #{data[:title]}")
-                puts "\n ~ >format: size, quality, format.\n\n"
+                puts
+                logger("y2mate", "format: size, quality, format.\n")
+                puts
+                dformats = nil
                 data[:media].each_with_index do | value, index |
                     size = value[:size]
                     if (!size.match?(/\d/) || size.length == 0)
@@ -67,16 +71,37 @@ class Y2mate < Helper
                     end
 
                     printf(
-                        " \033[32m(\033[0m%i\033[32m)\033[0m. %s, %s, %s\n",
+                        " \033[1;32m[\033[0m%02d\033[1;32m]\033[0m. %s, %s, %s\n",
                         index + 1, size, value[:quality], value[:format]
                     )
+
+                    # deafult quality check
+                    if !@default_quality.nil?
+                        if value[:quality].strip.include?(@default_quality) && dformats.nil?
+                            dformats = index + 1
+                        end
+                    end
+
                 end
                 puts
-                formats = prompt(" ~ choice: ").to_i
-                if (formats - 1) < data[:media].length
-                    choiced = data[:media][formats - 1]
-                    logger("y2mate", "converting to: #{choiced[:quality]}")
 
+                # if nothing, do prompt
+                if dformats.nil?
+                    if @default_quality.nil?
+                        # puts
+                        dformats = prompt(" \033[1;32m[\033[0my2mate\033[1;32m]\033[0m choice: ").to_i
+                    else
+                        logger(
+                            "y2mate",
+                            "Skipped: #{@default_quality} not found for #{data[:videoId]}!"
+                        )
+                        return
+                    end
+                end
+
+                if (dformats - 1) < data[:media].length
+                    choiced = data[:media][dformats - 1]
+                    logger("y2mate", "converting to: #{choiced[:quality]}")
                     # post convert APIs
                     convert = postPage(
                         "#{@host}/mates/convertV2/index",
@@ -94,12 +119,18 @@ class Y2mate < Helper
                             @path
                         )
                         logger("y2mate", "Saved as: #{@path}#{filename}")
+                        puts
                     end
+                else
+                    abort(" [y2mate] must be < #{data[:media].length}")
                 end
+            else
+                puts data
+                logger("y2mate", "skiping -> #{@shortid}")
+                return
             end
+        else
+            return JSON.dump(data)
         end
     end
 end
-
-#call
-# Y2mate.new("https://www.youtube.com/shorts/fwslN9doKDY", "video", "./", true).extract()
