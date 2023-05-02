@@ -1,10 +1,10 @@
-name: rubytube-downloader test
+name: rubytube-downloader
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  rubytube:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -12,8 +12,8 @@ jobs:
 
       - name: Install Ruby dependencies
         run: |
-          gem build
-          gem install rubytube-downloader-1.2.0.gem
+          sudo gem build
+          sudo gem install rubytube-downloader-1.2.0.gem
 
       - name: Create media directory
         run: mkdir -p ./media
