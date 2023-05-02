@@ -147,16 +147,20 @@ class YoutubeCom < Helper
                             logger("youtube", "Saved as: #{@path}#{filename}")
                             puts
                         else
-                            abort(" •! exception with signatureCipher, try other shorts url!")
+                            loogger("youtube", "\033[1;31mexception with signatureCipher, try other shorts url\033[0m!")
+                            return
                         end
                     else
-                        abort(" •! must be < #{index_formats.length}")
+                        logger("youtube", "must be < #{index_formats.length}")
+                        return
                     end
                 else	
-                    abort(" •! must be < #{all_formats.length}")
+                    logger("youtube", "must be < #{all_formats.length}")
+                    return
                 end
             else
-                abort('failed get video info!')
+                logger("youtube", "failed get video info!")
+                return
             end
         else
             return JSON.dump(json_data)

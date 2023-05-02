@@ -28,7 +28,8 @@ class Playlist < Helper
         if (playlistid = @playlist_url.match(@regex_playlist))
             logger("playlist", "downloading webpage: #{playlistid[:id]}")
             webpage = getPage(@playlist_url)
-            if (video_list = webpage.scan(/"videoId":"(.*?)"/).uniq)
+            video_list = webpage.scan(/"videoId":"(.*?)"/).uniq
+            if !video_list.empty?
                 logger("playlist", "found #{video_list.length} video in playlist.")
                 video_list.each_with_index do | val, index |
                     # execute call func 
@@ -61,11 +62,11 @@ class Playlist < Helper
                 end
             else
                 logger("playlist", "can't get video list from playlist")
-                exit
+                return
             end
         else
             logger("playlist", "invalid playlist url!")
-            exit
+            return
         end
     end
 end

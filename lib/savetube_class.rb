@@ -120,13 +120,15 @@ class SaveTube < Helper
                         logger("savetube", "saved as: #{@output}#{filename}")
                         puts
                     else
-                        abort(data.to_s)
+                        puts data.to_s
+                        return
                     end
                 else
-                    abort(" [savetube-err] Must < #{data['res'].length}!!")
+                    logger("savetube", " must < #{data['res'].length}!!")
                 end
             else
-                abort(data.to_s)
+                puts data.to_s
+                return
             end
         else
             # return as JSON string if set @cli to false

@@ -61,7 +61,7 @@ class Y2mate < Helper
                 logger("y2mate", "author: #{data[:author]}")
                 logger("y2mate", "title: #{data[:title]}")
                 puts
-                logger("y2mate", "format: size, quality, format.\n")
+                logger("y2mate", "format: size, quality, format.")
                 puts
                 dformats = nil
                 data[:media].each_with_index do | value, index |
@@ -122,7 +122,8 @@ class Y2mate < Helper
                         puts
                     end
                 else
-                    abort(" [y2mate] must be < #{data[:media].length}")
+                    logger("y2mate", "must be < #{data[:media].length}")
+                    return
                 end
             else
                 puts data
