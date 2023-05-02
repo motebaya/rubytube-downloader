@@ -130,7 +130,7 @@ def main()
             options[:output] = config['output']
             Helper.new.logger(
                 options[:server],
-                "config loaded from \033[33mconfig.yml\033[0m"
+                "config loaded from \033[33mrubytube.config.yml\033[0m"
             )
 			Helper.new.logger(
                 options[:server],
@@ -173,7 +173,8 @@ def main()
                             options[:url],
                             options[:type],
                             options[:output],
-                            true # enable CLI
+                            true, # enable CLI
+                            options[:default_quality]
                         ).extract()
                     when "y2mate"
                         Y2mate.new(
