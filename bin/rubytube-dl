@@ -3,8 +3,10 @@
 # @github.com/motebaya
 # update: 2023.05.02 10:01:02 am
 
-Dir["../lib/*_class.rb"].each do |classes| 
-    require_relative classes
+# load modules
+lib_dir = File.expand_path('../lib', __FILE__)
+Dir["#{lib_dir}/*_class.rb"].each do |classes|
+  require classes
 end
 
 require "optparse"
@@ -32,6 +34,8 @@ def check_path(path)
 end
 
 def main()
+    puts $banner
+    puts
     ARGV << '-h' if ARGV.empty?
     options = OpenStruct.new
     begin
@@ -99,8 +103,6 @@ def main()
         abort("#{$banner}\n invalid options : #{e.message}")
     end
 
-    puts $banner
-    puts
     @cli = true # CLI always true for this
     # config check
     if (options[:config])
