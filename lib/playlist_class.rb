@@ -59,7 +59,13 @@ class Playlist < Helper
                         ).extract()
                     end
                 end
+            else
+                logger("playlist", "can't get video list from playlist")
+                exit
             end
+        else
+            logger("playlist", "invalid playlist url!")
+            exit
         end
     end
 end
