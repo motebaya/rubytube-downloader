@@ -147,7 +147,7 @@ class YoutubeCom < Helper
                             logger("youtube", "Saved as: #{@path}#{filename}")
                             puts
                         else
-                            loogger("youtube", "\033[1;31mexception with signatureCipher, try other shorts url\033[0m!")
+                            logger("youtube", "\033[1;31mexception with signatureCipher, try other shorts url\033[0m!")
                             return
                         end
                     else
