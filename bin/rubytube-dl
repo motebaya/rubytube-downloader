@@ -4,13 +4,30 @@
 # update: 2023.05.02 10:01:02 am
 
 # load modules
-lib_dir = File.expand_path('../lib', __FILE__)
-Dir["#{lib_dir}/*_class.rb"].each do |classes|
-  require classes
-end
-
 require "optparse"
 require "ostruct"
+require "rubygems"
+
+pathLib = nil
+package_name = "rubytube-downloader"
+begin
+    gem_spec = Gem::Specification.find_by_name(
+        package_name
+    )
+    if gem_spec then
+        pathLib = Gem.loaded_specs[package_name].lib_dirs_glob
+    end
+rescue Gem::LoadError
+    pathLib = "../lib"
+end
+
+if !pathLib.nil?
+    Dir["#{pathLib}/*_class.rb"].each do |classes|
+        require classes
+    end
+else
+    abort("can't load the module!")
+end
 
 $banner = %{
         ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
@@ -188,7 +205,7 @@ def main()
             ).extract
         end
     else
-        main()
+        abort("Usage: rubytube-dl --help")
     end
 
 end
