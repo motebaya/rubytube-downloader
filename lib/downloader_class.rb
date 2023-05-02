@@ -4,7 +4,7 @@
 # 	@jinghea: https://github.com/jinghea/rget
 #	@jfelchner: https://github.com/jfelchner/ruby-progressbar
 #	@https://github.com/jnunemaker/httparty
-# © Copyright 2022.06 github.com/motebaya
+# © 2022.06 @github.com/motebaya
 
 require "ruby-progressbar"
 require "httparty"

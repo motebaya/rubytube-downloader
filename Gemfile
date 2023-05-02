@@ -1,2 +1,2 @@
 source 'https://rubygems.org'
-gem 'rubytube-downloader', git: 'https://github.com/motebaya/rubytube-downloader.git'
+gem "httparty", "0.21.0"
