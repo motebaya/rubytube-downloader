@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-# tested for run command
+# bash tested file
