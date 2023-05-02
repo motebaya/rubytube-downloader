@@ -1,17 +1,13 @@
 #!/usr/bin/ruby
-# Tue May 31 02:44:16 2022
-# read Markdown file for more details.
-# © Copyright 2022.06 github.com/motebaya
-
-#-- update --
-# Fri Apr 28 07:20:43 PM 2023
+# CLI handler file
+# @github.com/motebaya
+# update: 2023.05.02 10:01:02 am
 
 Dir["../lib/*_class.rb"].each do |classes| 
     require_relative classes
 end
 
 require "optparse"
-require "ostruct"
 
 $banner = %{
         ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
@@ -21,15 +17,18 @@ $banner = %{
       ~ © https://github.com/motebaya ~
 }
 
-# yt url validate with regex
-# https://stackoverflow.com/a/17030234
+# source: https://stackoverflow.com/a/17030234
 def check_url(url)
-    return url.match(%r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)")
+    return url.match(
+        %r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)"
+    )
 end
 
-#  check path exists or no
+# path check
 def check_path(path)
-    return File.directory?(path.to_s)
+    return File.directory?(
+        path.to_s
+    )
 end
 
 def main()
@@ -37,7 +36,7 @@ def main()
     options = OpenStruct.new
     begin
         OptionParser.new do | opts |
-            opts.banner = "#{$banner}\n Usage: rubytube-dl [OPTIONS]"
+            opts.banner = "Usage: rubytube-dl [OPTIONS]"
             opts.on(
                 "-u url","--url",
                 String,
@@ -72,6 +71,21 @@ def main()
                 options[:type] = type
             end
 
+            opts.on(
+                "-c", "--config",
+                "using config from: 'config.yml'"
+            ) do | config |
+                options[:config] = config
+            end
+
+            opts.on(
+                "-p playlist", "--playlist",
+                String,
+                "youtube playlist url",
+            ) do | playlist | 
+                options[:playlist] = playlist
+            end
+
             opts.on_tail(
                 "-h", "--help", 
                 String,
@@ -85,45 +99,90 @@ def main()
         abort("#{$banner}\n invalid options : #{e.message}")
     end
 
-    #  start check options
-    if ([options[:url], options[:server], options[:output]].all?)
-        
-        puts $banner
-        puts
-
-        if (options[:type].nil? && options[:server] == "savetube")
-            abort(" required param -type for this server, use --help!")
+    puts $banner
+    puts
+    @cli = true # CLI always true for this
+    # config check
+    if (options[:config])
+        config = Helper.new.loadconfig
+        if config.key?(options[:server])
+            config = config[options[:server]]
+            options[:output] = config['output']
+            Helper.new.logger(
+                options[:server],
+                "config loaded from \033[33mconfig.yml\033[0m"
+            )
+			Helper.new.logger(
+                options[:server],
+                "output dir: \033[33m#{options[:output]}\033[0m"
+            )
+            options[:default_quality] = config['quality']
+            Helper.new.logger(
+                options[:server],
+                "default quality set: \033[33m#{options[:default_quality]}\033[0m"
+            )
+            if options[:server] == 'savetube'
+                options[:type] = config['format']
+                Helper.new.logger(
+                    options[:server],
+                    "default type set: \033[33m#{options[:type]}\033[0m"
+                )
+            end
         end
+    end
 
-        if (check_url(options[:url]))
-            if (check_path(options[:output]))
-                case options[:server]
-                when "youtube"
-                    YoutubeCom.new(options[:url], options[:output], true).extract()
-                when "savetube"
-                    SaveTube.new(
-                        options[:url],
-                        options[:type],
-                        options[:output],
-                        true # enable CLI
-                    ).extract()
-                when "y2mate"
-                    Y2mate.new(
-                        options[:url],
-                        options[:output],
-                        true
-                    ).extract()
+    if ([options[:server], options[:output]].all?)
+        if options[:url]
+
+            if (options[:type].nil? && options[:server] == "savetube")
+                abort(" required param -type for this server, use --help!")
+            end
+    
+            if (check_url(options[:url]))
+                if (check_path(options[:output]))
+                    case options[:server]
+                    when "youtube"
+                        YoutubeCom.new(
+                            options[:url],
+                            options[:output],
+                            true,
+                            options[:default_quality]
+                        ).extract()
+                    when "savetube"
+                        SaveTube.new(
+                            options[:url],
+                            options[:type],
+                            options[:output],
+                            true # enable CLI
+                        ).extract()
+                    when "y2mate"
+                        Y2mate.new(
+                            options[:url],
+                            options[:output],
+                            true,
+                            options[:default_quality]
+                        ).extract()
+                    else
+                        raise OptionParser::InvalidArgument,
+                            "invalid server for -> #{options[:server]}"
+                    end
                 else
                     raise OptionParser::InvalidArgument,
-                        "invalid server for -> #{options[:server]}"
+                        "invalid output, no such directory -> #{options[:output]}"
                 end
             else
                 raise OptionParser::InvalidArgument,
-                    "invalid output, no such directory -> #{options[:output]}"
+                    "invalid url for -> #{options[:url]}"
             end
-        else
-            raise OptionParser::InvalidArgument,
-                "invalid url for -> #{options[:url]}"
+        elsif options[:playlist]
+            # just throw all arg lmao
+            Playlist.new(
+                options[:playlist],
+                options[:output],
+                options[:server],
+                options[:type],
+                options[:default_quality]
+            ).extract
         end
     else
         main()
