@@ -8,11 +8,41 @@
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
 <sub>A ruby script that i used it for download batch video or audio from youtube playlist</sub>
-```
-SOON
-```
 </div>
 
+### _ installing:
+
+```
+$ git clone https://github.com/motebaya/rubytube-downloader
+$ cd rubytube-downloader
+$ gem build
+$ gem install rubytube-downloader-1.2.0.gem
+$ rubytube-dl --help
+```
+
+### _ Command:
+```
+            ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
+            ├┬┘│ │├┴┐└┬┘ │ │ │├┴┐├┤───│││  
+            ┴└─└─┘└─┘ ┴  ┴ └─┘└─┘└─┘ ─┴┘┴─┘
+      ~ a ruby script for DL batch youtube video ~
+          ~ © https://github.com/motebaya ~
+
+    Usage: rubytube-dl [OPTIONS]
+        -u, --url url                    youtube video/shorts url
+        -o, --output output              output path download e.g: '/home/username/'
+        -s, --server server              select server, server list: [ youtube, savetube, y2mate ]
+        -t, --type type                  type of media: audio (.mp3) or video (.mp4)
+        -c, --config                     using config from: 'config.yml'
+        -p, --playlist playlist          youtube playlist url
+        -h, --help                       show help and exit.
+```
+
+### _ single url
+![from single](./src/demo1.svg)
+
+### _ playlist url
+![from playlist](./src/demo2.svg)
 
 <sub>
 - Note
@@ -26,7 +56,7 @@ SOON
   &lt;p&gt;120 per 1 hour&lt;/p&gt;
   </code></pre>
 
-a small update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
+update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
 <br>
 
 &copy; 2023 github.com/motebaya
