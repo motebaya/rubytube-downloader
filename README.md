@@ -8,48 +8,11 @@
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
 <sub>A ruby script that i used it for download batch video or audio from youtube playlist</sub>
-
+```
+SOON
+```
 </div>
 
-<sub>
-
-- Installing
-
-  - Install with gems
-
-    - `gem install yshort-downloader`
-
-  - Install from github
-    - <pre><code>$ gem 'rubytube-downloader', :git => 'git://github.com/motebaya/rubytube-downloader.git'</code></pre>
-
-- Usage as CLI (command line interface)
-
-  - savetube
-    <pre><code>usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server> -t <type>
-    example: ./rubytube-dl -u https://www.youtube.com/shorts/<shortid> -o ../media/ -s savetube -t audio
-    </code></pre>
-
-  - youtube.com
-    <pre><code>usage : ./rubytube-dl -u <youtube_url> -o <output> -s <server>
-    example: ./rubytube-dl -u https://www.youtube.com/shorts/<shorts_id> -o ../media/ -s youtube
-    </code></pre>
-
-  - y2mate.com
-    <pre><code>usage: ./rubytube-dl -u <youtube_url> -o <output_path> -s <server>
-    example: ./rubytube-dl -u https://www.youtube.com/shorts/<ytid> -o ../media/ -s y2mate
-    </code></pre>
-
-- Usage as Module:
-
-  - savetube
-
-    - usage: `----`
-
-  - youtube.com
-
-    - usage: `----`
-
-</sub>
 
 <sub>
 - Note
