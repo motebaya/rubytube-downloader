@@ -1,14 +1,14 @@
 # config setup for automation from playlist
 
 y2mate:
-  output: ../media/
-  quality: 720p
+  output: ./media/
+  quality: 480p
 
 savetube:
-  output: ../media/
+  output: ./media/
   format: video
   quality: 720p
 
 youtube:
-  output: ../media/
+  output: ./media/
   quality: nonadaptive_360p

@@ -1,0 +1,27 @@
+name: rubytube-downloader test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Ruby dependencies
+        run: |
+          gem build
+          gem install rubytube-downloader-1.2.0.gem
+
+      - name: Create media directory
+        run: mkdir -p ./media
+
+      - name: Run downloader script
+        run: |
+          ./run.sh
+
+      - name: Verify downloaded files
+        run: |
+          ls -l ./media
