@@ -1,10 +1,8 @@
 #!/usr/bin/ruby
 # update: Tue 02.2023 09:54:25 AM WIB
-# youtube media downlaoder with js parser method
-# this is real get from youtube source, 
 # nothing spesific media type like what do you want!.
 # read Markdown file for more details.
-# © Copyright 2022.06 github.com/valsztrax
+# © Copyright 2022.06 github.com/motebaya
 
 class YoutubeCom < Helper
 
