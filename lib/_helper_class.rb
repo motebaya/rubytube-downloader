@@ -22,11 +22,15 @@ class Helper
     end
 
     def loadconfig
-        return YAML.load_file(
-            File.realpath(
-                "../config.yml"
+        if File.exist?("./rubytube.config.yml")
+            return YAML.load_file(
+                File.realpath(
+                    "./rubytube.config.yml"
+                )
             )
-        )
+        else
+            abort("cannot find config file: `rubytube.config.yml`!")
+        end
     end
 
     def logger(from, message)
