@@ -1,11 +1,12 @@
 #!/usr/bin/ruby
 # ruby helper class
-# date: Sat Apr 29 11:01:25 PM 2023
-# @github.com/motebaya
+# date: 2023.05.02 09:59:07 am
 
 require File.join(
     File.dirname(
         __FILE__), "downloader_class")
+
+require "yaml"
 
 class Helper 
     def initialize
@@ -17,6 +18,15 @@ class Helper
         @default_headers = {
             "User-Agent" => @userAgent[:windows]
         }
+        @cli = true
+    end
+
+    def loadconfig
+        return YAML.load_file(
+            File.realpath(
+                "../config.yml"
+            )
+        )
     end
 
     def logger(from, message)
