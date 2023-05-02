@@ -1,18 +1,20 @@
 #!/usr/bin/ruby
-# Tue May 31 02:44:16 2022
+# update: Tue 02.2023 09:54:25 AM WIB
 # youtube media downlaoder with js parser method
+# this is real get from youtube source, 
 # nothing spesific media type like what do you want!.
 # read Markdown file for more details.
-# © Copyright 2022.06 github.com/motebaya
+# © Copyright 2022.06 github.com/valsztrax
 
 class YoutubeCom < Helper
 
     attr_reader :shorts_url, :path, :shorts_id, :formats, :adaptiveFormats
-    def initialize(url="", path=nil, cli=false)
+    def initialize(url="", path=nil, cli=false, default_quality=nil)
         super()
         @shorts_url = url
         @cli = cli
-        @shorts_id = url.match(%r"shorts\/([\w]+)").to_s
+        @default_quality = default_quality
+        @shortid = check_url(url)[1] #url.match(%r"shorts\/([\w]+)").to_s
         @path = getOutput(path)
         @formats = []
         @adaptiveFormats = []
@@ -69,7 +71,7 @@ class YoutubeCom < Helper
     def extract
         json_data = analyze
         if @cli
-            logger("youtube", "downloading webpage: #{@shorts_id}")
+            logger("youtube", "downloading webpage: #{@shortid}")
             if json_data
                 json_data.each do | key, value |
                     if (!['description', 'formats', 'adaptive_formats'].include?(key)) # skip desc,too long
@@ -81,26 +83,61 @@ class YoutubeCom < Helper
 
                 puts
                 printf(
-                    " ~ 1). Audio With Video (%s)\n ~ 2). Audio / Video Only (%s)\n",
+                    " \033[1;32m[\033[0m01\033[1;32m]\033[0m. Audio With Video (%s)\n \033[1;32m[\033[0m02\033[1;32m]\033[0m. Audio / Video Only (%s)",
                     @formats.length.to_s, @adaptiveFormats.length.to_s
                 )
                 puts
-                choice = prompt(" ~ Set : ")
-                all_formats = [@formats, @adaptiveFormats]
-                if (choice.to_i - 1) < all_formats.length
-                    index_formats = all_formats[choice.to_i-1]
+
+                all_formats = [
+                    @formats,
+                    @adaptiveFormats
+                ]
+                
+                # adaptive or nonadaptive?
+                dformats = !@default_quality.nil? ? (
+                    @default_quality.include?(
+                        "nonadaptive") ? 1: 2) : @defaul_quality
+
+                if @default_quality.nil?
                     puts
-                    puts " ~ .format> (:type, :quality, :bitrate)\n"
+                    dformats = prompt(" \033[1;32m[\033[0myoutube\033[1;32m]\033[0m choice: ")
+                end
+
+                if (dformats.to_i - 1) < all_formats.length
+                    cformats = nil
+                    index_formats = all_formats[dformats.to_i-1]
+                    puts
+                    puts " \033[1;32m[\033[0myoutube\033[1;32m]\033[0m format> (:type, :quality, :bitrate)\n"
+                    puts
                     index_formats.each_with_index do | string, index |
                         printf(
-                            " ~ \033[32m(\033[0m%i\033[32m)\033[0m. %s - %s - %s \n",
+                            " \033[1;32m[\033[0m%02d\033[1;32m]\033[0m. %s - %s - %s \n",
                             index + 1, string['type'], string['quality'], string['bitrate']
                         )
+                        
+                        # check quality
+                        if !@default_quality.nil?
+                            if string['quality'].include?(
+                                    @default_quality.split('_')[-1]
+                                ) && cformats.nil?
+                                cformats = index + 1
+                            end
+                        end
+
                     end
                     puts
-                    choice = prompt(" ~ Set: ")
-                    if (choice.to_i - 1) < index_formats.length
-                        index_choice = index_formats[choice.to_i - 1]
+
+                    if cformats.nil?
+                        if @default_quality.nil?
+                            cformats = prompt(" \033[1;32m[\033[0myoutube\033[1;32m]\033[0m choice: ")
+                        else
+                            logger("youtube", "nothing #{@default_quality} for #{@shortid}")
+                            return
+                        end
+                    end
+
+                    if (cformats.to_i - 1) < index_formats.length
+                        index_choice = index_formats[cformats.to_i - 1]
                         filename = json_data["title"] + "." + index_choice["type"].split("/")[-1]
                         logger("youtube", "downloading: #{filename}")
                         if (!index_choice["link"].nil?)
@@ -110,6 +147,7 @@ class YoutubeCom < Helper
                                 @path
                             )
                             logger("youtube", "Saved as: #{@path}#{filename}")
+                            puts
                         else
                             abort(" •! exception with signatureCipher, try other shorts url!")
                         end
@@ -127,6 +165,3 @@ class YoutubeCom < Helper
         end
     end
 end
-
-# data = YoutubeCom.new("https://www.youtube.com/shorts/fwslN9doKDY", "./", false).extract()
-# puts data
