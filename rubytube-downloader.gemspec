@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = 'ruby script to download video/short media from youtube'
   s.license     = 'MIT'
 
-  s.files       = ['lib/*_class.rb', 'bin/rubytube-dl']
+  s.files       = FileList['lib/*_class.rb'] + ['bin/rubytube-dl']
   s.require_path = 'lib'
 
   s.add_dependency 'httparty', '~> 0.21.0'
