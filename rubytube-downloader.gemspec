@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.files       = FileList['lib/*_class.rb'] + ['bin/rubytube-dl']
   s.add_dependency 'httparty', '~> 0.21.0'
+  s.add_dependency 'ruby-progressbar', '~> 1.8.1'
   s.executables  = ['rubytube-dl']
   s.homepage = 'https://github.com/motebaya/rubytube-downloader'
   s.bindir       = 'bin'
