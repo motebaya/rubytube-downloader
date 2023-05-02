@@ -3,7 +3,7 @@
 require "rake"
 
 Gem::Specification.new do |s|
-  s.name        = 'rubytube-dl'
+  s.name        = 'rubytube-downloader'
   s.version     = '1.2.0'
   s.authors     = ['Motebaya']
   s.email       = 'motebaya@github.com'
