@@ -2,10 +2,6 @@
 # ruby helper class
 # date: 2023.05.02 09:59:07 am
 
-require File.join(
-    File.dirname(
-        __FILE__), "downloader_class")
-
 require "yaml"
 
 class Helper 
