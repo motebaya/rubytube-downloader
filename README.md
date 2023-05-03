@@ -39,10 +39,10 @@ $ rubytube-dl --help
 ```
 
 ### _ single url
-![from single](./src/demo1.svg)
+![from single](./src/demo1.gif)
 
 ### _ playlist url
-![from playlist](./src/demo2.svg)
+![from playlist](./src/demo2.gif)
 
 <sub>
 - Note
