@@ -29,7 +29,7 @@ class YoutubeCom < Helper
                 if (data["playabilityStatus"]["status"].downcase == "ok")
                     ["formats","adaptiveFormats"].each { | format |
                         data["streamingData"][format].each { | stream |
-                            quality = if stream.has_key?("qualityLabel") then stream["qualityLabel"] else "" end
+                            quality = if stream.has_key?("qualityLabel") then stream["qualityLabel"] else "-" end
                             opts = {
                                 "link" => stream["url"],
                                 "type" => stream["mimeType"].split(";")[0],
