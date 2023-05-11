@@ -58,17 +58,14 @@ class SaveTube < Helper
                     }
                 }
                 response["res"] = (@formats == 'video' ? response['res'].slice(1...) : response['res'])
-                if @cli
-                    return response
-                end
-
-                return JSON.dump(response)
+                return response
             else
                 return nil
             end
         else
-            puts data.to_s
-            exit
+            return {
+                "status" => "404"
+            }
         end
     end
 
