@@ -21,9 +21,10 @@ class SaveTube < Helper
         default_quality=nil
     )
         super()
-        @shortUrl = url
+        @youtubeUrl = url
         @default_quality = default_quality
         @host = "https://ytshorts.savetube.me/"
+        # this cdn host may sometime will change
         @api = "https://cdn69.savetube.me"
         @headers = 	{
             "Host":"api.savetube.me",
@@ -32,14 +33,15 @@ class SaveTube < Helper
             "Origin": @host,
             "Referer": @host
         }
-        @output = getOutput(path)
+        @output = !path.nil? ? getOutput(path) : path
         @cli = cli
         @formats = !formats.nil? ? formats : 'video' # the default formats is video
-        @shortId = check_url(@shortUrl)[1] #url.match(%r"shorts\/([\w]+)").to_s
+        @youtubeid = !url.nil? ? check_url(url)[1] : ""
     end
 
+    # get info from api
     def analyze
-        page = getPage("#{@api}/info", @headers, {'url': @shortUrl})
+        page = getPage("#{@api}/info", @headers, {'url': @youtubeUrl})
         js = loadJson(page.to_s)
         if (js["status"] and js['message'].to_i == 200)
             if (["audio","video"].include?(@formats))
@@ -65,14 +67,16 @@ class SaveTube < Helper
                 return nil
             end
         else
-            abort(js.to_s)
+            puts data.to_s
+            exit
         end
     end
 
+    # extraction func
     def extract(quality=nil, response=nil)
         # CLI handler
         if (!quality && !response)
-            logger("savetube", "downloading webpage: #{@shortId}")
+            logger("savetube", "downloading webpage: #{@youtubeid}")
             data = analyze
             # puts data
             if (!data.nil?)
@@ -98,7 +102,7 @@ class SaveTube < Helper
                     if @default_quality.nil?
                         dformats = prompt(" \033[1;32m[\033[0msavetube\033[1;32m]\033[0m Set : ").to_i
                     else
-                        logger("savetube", "skipped: nothing `#{@defaul_quality}` for #{@shortId}.")
+                        logger("savetube", "skipped: nothing `#{@defaul_quality}` for #{@youtubeid}.")
                         return
                     end
                 end
@@ -131,25 +135,13 @@ class SaveTube < Helper
                 return
             end
         else
-            # return as JSON string if set @cli to false
-            response = loadJson(response)
-            if (response[:res].map { |qual| qual.split('->')[0].strip}).include?(quality.to_s)
-                jResponse = loadJson(
-                    getPage(
-                        sprintf(
-                            "%s/download/%s/%s/%s", @api, response[:format],
-                            quality.to_s, response[:key]
-                        )
-                    )
+            # just return to convert page
+            return getPage(
+                     sprintf(
+                         "%s/download/%s/%s/%s", @api, formats,
+                         quality, token
+                     )
                 )
-                if (jResponse['status'] && jResponse['message'].to_i == 200)
-                    return JSON.dump(jResponse)
-                end
-            else
-                return JSON.dump({
-                    "error": "invalid quality"
-                })
-            end
         end
     end
 end

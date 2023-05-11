@@ -5,7 +5,7 @@
 
 class Y2mate < Helper
     # y2mate no need @param formats
-    def initialize(url, path=nil, cli=false, default_quality=nil)
+    def initialize(url=nil, path=nil, cli=false, default_quality=nil)
         super()
         @cli = cli
         @url = url
@@ -17,7 +17,7 @@ class Y2mate < Helper
             'UserAgent' => @userAgent[:linux],
             'Content-Type' => 'application/x-www-form-urlencoded'
         }
-        @shortid = check_url(url)[1]
+        @youtubeid = !url.nil? ? check_url(url)[1] : ''
     end
 
     def analyze
@@ -31,10 +31,10 @@ class Y2mate < Helper
                     for formatKey in json['links'][key].keys
                         get = json['links'][key][formatKey]
                         data.append({
-                            'size': get['size'],
+                            'size': !get['size'].empty? ? get['size'] : '-',
                             'quality': get['q_text'].gsub(/<[^>]*>/, ''),
                             'format': get['f'],
-                            'key': get['k']
+                            'key': URI.encode_uri_component(get['k'])
                         })
                     end
                 end
@@ -53,10 +53,21 @@ class Y2mate < Helper
         end
     end
 
+	# only convert from ID and token
+	def convert(youtubeid, token)
+		return postPage(
+            "#{@host}/mates/convertV2/index",
+ 	           @headers, {
+				vid: youtubeid,
+				k: URI.decode_uri_component(token)
+			}
+        ).to_s
+	end
+
     def extract
         data = analyze
         if @cli
-            logger("y2mate", "downloading webpage: #{@shortid}")
+            logger("y2mate", "downloading webpage: #{@youtubeid}")
             if (!data.nil?)
                 logger("y2mate", "author: #{data[:author]}")
                 logger("y2mate", "title: #{data[:title]}")
@@ -127,7 +138,7 @@ class Y2mate < Helper
                 end
             else
                 puts data
-                logger("y2mate", "skiping -> #{@shortid}")
+                logger("y2mate", "skiping -> #{@youtubeid}")
                 return
             end
         else

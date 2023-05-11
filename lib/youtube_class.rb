@@ -9,17 +9,17 @@ class YoutubeCom < Helper
     attr_reader :shorts_url, :path, :shorts_id, :formats, :adaptiveFormats
     def initialize(url="", path=nil, cli=false, default_quality=nil)
         super()
-        @shorts_url = url
+        @youtubeurl = url
         @cli = cli
         @default_quality = default_quality
-        @shortid = check_url(url)[1] #url.match(%r"shorts\/([\w]+)").to_s
-        @path = getOutput(path)
+        @youtubeid = !url.nil? ? check_url(url)[1] : ''
+        @path = !path.nil? ? getOutput(path) : path
         @formats = []
         @adaptiveFormats = []
     end
 
     def analyze
-        page = getPage(@shorts_url)
+        page = getPage(@youtubeurl)
         formats = []
         adaptiveFormats = []
         # parse JSON from javascript source
@@ -69,7 +69,7 @@ class YoutubeCom < Helper
     def extract
         json_data = analyze
         if @cli
-            logger("youtube", "downloading webpage: #{@shortid}")
+            logger("youtube", "downloading webpage: #{@youtubeid}")
             if json_data
                 json_data.each do | key, value |
                     if (!['description', 'formats', 'adaptive_formats'].include?(key)) # skip desc,too long
@@ -129,7 +129,7 @@ class YoutubeCom < Helper
                         if @default_quality.nil?
                             cformats = prompt(" \033[1;32m[\033[0myoutube\033[1;32m]\033[0m choice: ")
                         else
-                            logger("youtube", "nothing #{@default_quality} for #{@shortid}")
+                            logger("youtube", "nothing #{@default_quality} for #{@youtubeid}")
                             return
                         end
                     end
