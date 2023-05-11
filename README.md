@@ -76,8 +76,14 @@ Use Ctrl-C to stop
   &lt;p&gt;120 per 1 hour&lt;/p&gt;
   </code></pre>
 
-update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
-<br>
+- youtube [signature authorization](https://github.com/ytdl-org/youtube-dl/blob/211cbfd5d46025a8e4d8f9f3d424aaada4698974/youtube_dl/extractor/youtube.py#L1574) issue:
+
+  ```
+  "signatureCipher":"s=_%3DUVUYL4RQgaW7wZtZMBwYK199-NuGB9GFGcDD%3DmdxyTzAEiAgfRlI2ag5SFdxPkA1qFxBLvDNDgzegohCUWxdDTTAGKAhIgRw8JQ0qOAqOAqOO\u0026sp=sig\u0026url=https://rr4---sn-uxa3vhnxa-nvje.googlevideo.com/videoplayback%3Fexpire%3D1683329429%26ei%3DNT1VZLmACIuJg8UPr8mu-Ac%26ip%3D182.2.39.127%26id%3Do......_5qg%253D%253D"
+  ```
+
+  update adding more website from <a href="https://www.y2mate.com/en560" target="_blank"> y2mate</a>
+  <br>
 
 &copy; 2023 github.com/motebaya
 </sub>
