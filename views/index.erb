@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,300&family=Ubuntu:ital@0;1&display=swap">
+    <title>Rubytube</title>
+  </head>
+  <body style="font-family: 'Ubuntu', sans-serif;">
+    <div class="container mt-2">
+      <div class="card">
+        <h5 class="card-header text-center">rubytube downloader</h5>
+        <div class="card-body">
+          <p class="card-text text-center">simple static website for download youtube video/shorts made with <a href="https://www.ruby-lang.org/en/downloads/
+">ruby</a></p>
+          <%# start form %>
+          <form action='' id="teraform">
+            <div class="mb-3">
+              <label class="form-label">youtube url:</label>
+              <input type="url" placeholder="e.g: https://www.youtube.com/watch?v=cmbf_hd6FJY" class="form-control" name="youtube-url" required>
+            </div>
+            <label class="form-label">server:</label>
+            <select class="mb-2 form-select" name="v-server" required>
+              <option value="">Select Server... </option>
+              <option value="y2mate">y2mate (y2mate.com)</option>
+              <option value="savetube">savetube (savetube.me)</option>
+              <option value="youtube">youtube (youtube.com)</option>
+            </select>
+            <%# type for only savetube :< %>
+            <%# jquery will create a child element to here %>
+            <button type="submit" id="tera-button" class="mt-2 btn btn-outline-secondary">download</button>
+          </form>
+          <%# end form dude :v %>
+        </div>
+      </div>
+      <%# card for result dude %>
+      <div class="card mt-3">
+        <h3 class="card-header">result:</h3>
+        <img id="thumbnail" src="/image/menhera-chibi.gif" class="img-thumbnail" alt="video-thumbnail"/>
+        <div class="card mt-2" id="card-info">
+          <div class="card-header">information</div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+            </ul>
+          </div>
+        </div>
+        <%# here result %>
+        <div class="card-body" id="result">
+          <h5 class="text-center">~ video list ~</h5>
+          <table class="table table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center card-footer text-muted">
+          made with &#9749; by <a href="https://github.com/motebaya" target="_blank"> Motebaya</a> 2023.04
+        </div>
+      </div>
+    </div>
+    <script src="/js/jquery-3.6.4.min.js" type="text/javascript"></script>
+    <script src="/js/rubytube.js" type="text/javascript"></script>
+    <br>
+  </body>
+</html>
