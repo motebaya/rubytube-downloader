@@ -70,9 +70,13 @@ class SaveTube < Helper
     end
 
     # extraction func
-    def extract(quality=nil, response=nil)
+    def extract(
+        formats=nil,
+        quality=nil,
+        tokens=nil
+    )
         # CLI handler
-        if (!quality && !response)
+        if (![formats, quality, token].all?)
             logger("savetube", "downloading webpage: #{@youtubeid}")
             data = analyze
             # puts data
