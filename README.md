@@ -8,9 +8,10 @@
 <a href="https://www.ruby-lang.org/en/" target="_blank"> ![](https://img.shields.io/badge/installing-ruby-orange?logo=linux&logoColor=black)</a>
 
 <sub>A ruby script that i used it for download batch video or audio from youtube playlist</sub>
+
 </div>
 
-### _ installing:
+### \_ installing:
 
 ```
 $ git clone https://github.com/motebaya/rubytube-downloader
@@ -20,10 +21,26 @@ $ gem install rubytube-downloader-1.2.0.gem
 $ rubytube-dl --help
 ```
 
-### _ Command:
+### \_ run on local server
+
 ```
-            ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬  
-            ├┬┘│ │├┴┐└┬┘ │ │ │├┴┐├┤───│││  
+$ gem install shotgun
+$ gem install sinatra
+$ shotgun index.rb
+== Shotgun/Puma on http://127.0.0.1:9393/
+Puma starting in single mode...
+* Version 4.3.8 (ruby 3.1.4-p223), codename: Mysterious Traveller
+* Min threads: 0, max threads: 16
+* Environment: development
+* Listening on tcp://127.0.0.1:9393
+Use Ctrl-C to stop
+```
+
+### \_ CLI Command:
+
+```
+            ┬─┐┬ ┬┌┐ ┬ ┬┌┬┐┬ ┬┌┐ ┌─┐ ┌┬┐┬
+            ├┬┘│ │├┴┐└┬┘ │ │ │├┴┐├┤───│││
             ┴└─└─┘└─┘ ┴  ┴ └─┘└─┘└─┘ ─┴┘┴─┘
       ~ a ruby script for DL batch youtube video ~
           ~ © https://github.com/motebaya ~
@@ -38,10 +55,12 @@ $ rubytube-dl --help
         -h, --help                       show help and exit.
 ```
 
-### _ single url
+### \_ single url
+
 ![from single](./src/demo1.gif)
 
-### _ playlist url
+### \_ playlist url
+
 ![from playlist](./src/demo2.gif)
 
 <sub>
