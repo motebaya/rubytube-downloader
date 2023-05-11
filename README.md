@@ -24,8 +24,9 @@ $ rubytube-dl --help
 ### \_ run on local server
 
 ```
-$ gem install shotgun
-$ gem install sinatra
+$ gem install shotgun -v 0.9.2
+$ gem install sinatra -v 3.0.6
+$ gem install puma -v 4.3.8
 $ shotgun index.rb
 == Shotgun/Puma on http://127.0.0.1:9393/
 Puma starting in single mode...
