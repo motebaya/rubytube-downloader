@@ -108,9 +108,11 @@ get %r{/(y2mate|savetube|youtube)} do
             # quality = formats
             quality = ["1920","1280","854","640","426","256", "144"].include?(data) ? "video" : "audio"
             converted = SaveTube.new.extract(quality, data, token)
-            response.merge!(
-                JSON.parse(converted)
-            )
+            jsonConverted = JSON.parse(converted)
+            if !jsonConverted['status']
+                response['success'] = false
+            end
+            response.merge!(jsonConverted)
             showMessage(response)
         end
     else

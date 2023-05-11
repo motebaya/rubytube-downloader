@@ -300,7 +300,7 @@ $(function () {
       t: $button.data("token"),
     })
       .done(function (response) {
-        console.log(response);
+        // console.log(response);
         if (response.success) {
           $("<a>", {
             href:
@@ -311,6 +311,8 @@ $(function () {
             rel: "noreferrer nofollow noopener",
           })[0].click();
           $button.text("success...");
+        } else {
+          $button.text("failed convert!");
         }
       })
       .fail(function (e) {

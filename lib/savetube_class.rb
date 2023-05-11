@@ -73,7 +73,7 @@ class SaveTube < Helper
     def extract(
         formats=nil,
         quality=nil,
-        tokens=nil
+        token=nil
     )
         # CLI handler
         if (![formats, quality, token].all?)
