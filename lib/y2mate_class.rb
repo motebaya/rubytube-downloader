@@ -116,7 +116,7 @@ class Y2mate < Helper
                     # post convert APIs
                     convert = postPage(
                         "#{@host}/mates/convertV2/index",
-                        @headers, {vid: data[:videoId], k: choiced[:key]}
+                        @headers, {vid: data[:videoId], k: URI.decode_uri_component(choiced[:key])}
                     ).to_s
                     jConvert = loadJson(convert)
                     if jConvert["status"].downcase == "ok"

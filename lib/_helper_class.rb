@@ -3,6 +3,8 @@
 # date: 2023.05.02 09:59:07 am
 
 require "yaml"
+require "httparty"
+require "uri"
 
 class Helper 
     def initialize
