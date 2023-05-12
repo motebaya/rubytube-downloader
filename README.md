@@ -23,6 +23,8 @@ $ rubytube-dl --help
 
 ### \_ run on local server
 
+- using `shotgun` for `development` or directly run with `ruby` for `production`
+
 ```
 $ gem install shotgun -v 0.9.2
 $ gem install sinatra -v 3.0.6
@@ -36,6 +38,8 @@ Puma starting in single mode...
 * Listening on tcp://127.0.0.1:9393
 Use Ctrl-C to stop
 ```
+
+![screenshot](./src/screenshot.jpg)
 
 ### \_ CLI Command:
 
