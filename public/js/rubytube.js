@@ -144,7 +144,7 @@ $(function () {
                 <td>${tbl.size}</td>
                 <td>${tbl.quality}</td>
                 <td>${tbl.format}</td>
-                <td style="text-align: center;" ><button type="submit" data-server="${server}" data-vid="${youtubeID}" data-token="${
+                <td><button type="submit" data-server="${server}" data-vid="${youtubeID}" data-token="${
                       tbl.key
                     }" class="btn btn-outline-secondary download-gas">download</button></td>
               </tr>`
@@ -191,7 +191,7 @@ $(function () {
                 <td>${index + 1}</td>
                 <td>${response.format}</td>
                 <td>${quality}</td>
-                <td style="text-align: center;" ><button type="submit" data-server="${server}" data-vid="${
+                <td><button type="submit" data-server="${server}" data-vid="${
                       quality.split("x")[0]
                     }" data-token="${
                       response.key
@@ -257,13 +257,10 @@ $(function () {
                     .find("tbody tr")
                     .eq(index)
                     .append(
-                      `<td style="text-align: center;" ><a rel="noopener norefferer nofollow" href="${val.link}" target="_blank" class="btn btn-outline-secondary">download</a></td>`
+                      `<td><a rel="noopener norefferer nofollow" href="${val.link}" target="_blank" class="btn btn-outline-secondary">download</a></td>`
                     );
                 } else {
-                  tableresult
-                    .find("tbody tr")
-                    .eq(index)
-                    .append(`<td style="align: center"> - </td>`);
+                  tableresult.find("tbody tr").eq(index).append(`<td> - </td>`);
                   // append the danger  info to table result if youtube can't get strean url:<
                   if (tableresult.find("small").length === 0) {
                     tableresult.find("h5").after(
