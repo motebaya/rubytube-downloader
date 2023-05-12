@@ -106,8 +106,8 @@ get %r{/(y2mate|savetube|youtube)} do
             showMessage(response)
         elsif routename == "savetube"
             # quality = formats
-            quality = ["1920","1280","854","640","426","256", "144"].include?(data) ? "video" : "audio"
-            converted = SaveTube.new.extract(quality, data, token)
+            formats = data.to_s != "128" ? "video" : "audio"
+            converted = SaveTube.new.extract(formats, data, token)
             jsonConverted = JSON.parse(converted)
             if !jsonConverted['status']
                 response['success'] = false
