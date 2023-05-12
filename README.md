@@ -39,7 +39,7 @@ Puma starting in single mode...
 Use Ctrl-C to stop
 ```
 
-![screenshot](./src/screenshot.jpg)
+![screenshot](./src/screenshot.png)
 
 ### \_ CLI Command:
 
